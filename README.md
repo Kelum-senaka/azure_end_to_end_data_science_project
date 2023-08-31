@@ -18,7 +18,7 @@ To connect the on premises database with the cloud storage,self hosted runtime i
 ## Data Transformation
 Once data copy into the bronze layer through the data ingestion,I did data transformation using azure databricks service.Transformation has done in two phases.In first phase,transformed data stored into the silver layer and in second phase it is stored in gold layer.Data inluded inside the gold layer is suitable to consume for the report/data visualization purpose.To do  the each level of transformation prepared the script inside the two notebook files.
 
-Level 1 transformation - bronze to silver.ipynb
+Level 1 transformation - bronze to silver.ipynb <br/>
 Level 2 transformation - silver to gold.ipynb
 
 Full pipeline with data ingestion and transformations
