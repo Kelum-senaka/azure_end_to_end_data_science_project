@@ -24,7 +24,7 @@ Level 2 transformation - silver to gold.ipynb
 Full pipeline with data ingestion and transformations
 
 <p align="center">
-  <img width="80%" height="80%" src="images\adf_pipeline_full.png">
+  <img width="90%" height="90%" src="images\adf_pipeline_full.png">
 </p>
 
 ## Data Loading
