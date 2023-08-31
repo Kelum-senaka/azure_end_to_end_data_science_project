@@ -4,7 +4,7 @@
 In this project,Different azure services have used for each data science task like data ingestion,data transformation,data loading and data reporting.As a database "AdventureWorks Database" was utilized.Below images shows entire architecture of the project.
 
 <p align="center">
-  <img width="60%" height="60%" src="images\product_report.png">
+  <img width="60%" height="60%" src="images\architecture.png">
 </p>
 
 ## Data Ingestion
@@ -18,8 +18,10 @@ To connect the on premises database with the cloud storage,self hosted runtime i
 ## Data Transformation
 Once data copy into the bronze layer through the data ingestion,I did data transformation using azure databricks service.Transformation has done in two phases.In first phase,transformed data stored into the silver layer and in second phase it is stored in gold layer.Data inluded inside the gold layer is suitable to consume for the report/data visualization purpose.To do  the each level of transformation prepared the script inside the two notebook files.
 
-    Level 1 transformation - bronze to silver.ipynb
-    Level 2 transformation - silver to gold.ipynb
+Level 1 transformation - bronze to silver.ipynb
+Level 2 transformation - silver to gold.ipynb
+
+Full pipeline with data ingestion and transformations
 
 <p align="center">
   <img width="60%" height="60%" src="images\adf_pipeline_full.png">
@@ -34,27 +36,27 @@ Azure synpase analytics was used to load the data from gold layer to the SQL dat
 
 Script for stored procedure:
 
-'''
-USE gold_DB
-GO
 
-CREATE or ALTER  PROC serverless_gold_view (@viewname NVARCHAR(100))
-AS
-BEGIN
+      USE gold_DB
+      GO
 
-DECLARE @statement VARCHAR(MAX)
-    SET @statement = N' CREATE or ALTER VIEW '+ @viewname + ' AS 
-        SELECT *FROM 
-            OPENROWSET(BULK ''https://adls4adventure.dfs.core.windows.net/gold/SalesLT/'+ @viewname +'/'',
-            FORMAT=''DELTA'') AS [result]
-    '
+      CREATE or ALTER  PROC serverless_gold_view (@viewname NVARCHAR(100))
+      AS
+      BEGIN
 
-EXEC (@statement)
+      DECLARE @statement VARCHAR(MAX)
+          SET @statement = N' CREATE or ALTER VIEW '+ @viewname + ' AS 
+              SELECT *FROM 
+                  OPENROWSET(BULK ''https://adls4adventure.dfs.core.windows.net/gold/SalesLT/'+ @viewname +'/'',
+                  FORMAT=''DELTA'') AS [result]
+          '
 
-END
-GO
+      EXEC (@statement)
 
-'''
+      END
+      GO
+
+
 
 
 
